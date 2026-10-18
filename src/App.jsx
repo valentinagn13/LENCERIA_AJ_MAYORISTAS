@@ -1,0 +1,49 @@
+// App.jsx
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Layout from "./components/layout/Layout";
+import Promociones from "./pages/promociones";
+import Inicio from "./pages/inicio";
+
+import Juguetes from "./pages/juguetes";
+import Lenceria from "./pages/lenceria";
+import Lubricantes from "./pages/lubricantes";
+import Suplementos from "./pages/suplementos";
+import Higiene from "./pages/higiene";
+import BronceadoresPage from "./pages/vestidosBano";
+import Contacto from "./pages/contacto";
+import Combos from "./pages/Combos";
+import Visitanos from "./pages/visitanos";
+import DetalleProducto from "./database/DetalleProducto";
+import { CartProvider } from './components/solar/CartContext';
+import Domicilio from "./pages/domicilio";
+import ScrollToTop from "./pages/ScrollToTop";
+function App() {
+  return (
+    <CartProvider>
+      <Router>
+              <ScrollToTop />
+
+        <Routes>
+          <Route path="/" element={<Layout><Inicio /></Layout>} />
+          <Route path="/promociones" element={<Layout><Promociones /></Layout>} />
+          <Route path="/contacto" element={<Layout><Contacto /></Layout>} />
+          <Route path="/combos" element={<Layout><Combos /></Layout>} />
+          <Route path="/visitanos" element={<Layout><Visitanos /></Layout>} />
+          <Route path="/juguetes" element={<Layout><Juguetes /></Layout>} />
+          <Route path="/lenceria" element={<Layout><Lenceria /></Layout>} />
+          <Route path="/lenceria/todo" element={<Navigate replace to="/lenceria" />} />
+          <Route path="/lenceria/:gender" element={<Layout><Lenceria /></Layout>} />
+          <Route path="/lubricantes" element={<Layout><Lubricantes /></Layout>} />
+          <Route path="/suplementos" element={<Layout><Suplementos /></Layout>} />
+          <Route path="/higiene" element={<Layout><Higiene /></Layout>} />
+          <Route path="/bronceadores" element={<Layout><BronceadoresPage /></Layout>} />
+          <Route path="/domicilio" element={<Layout><Domicilio /></Layout>} />
+          <Route path="/:slug" element={<Layout><DetalleProducto /></Layout>} />
+        </Routes>
+      </Router>
+    </CartProvider>
+  );
+}
+
+export default App;
