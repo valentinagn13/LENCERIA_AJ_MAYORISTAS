@@ -128,7 +128,7 @@ const SelectorLenceria = ({ categoriaActiva, estiloLista = false }) => {
   );
 };
 
-const Lenceria = ({ onlyPromos, productos, searchTerm }) => {
+const Lenceria = ({ productos, searchTerm }) => {
   const { gender } = useParams();
   const location = useLocation();
   const productosRef = useRef(null);
@@ -185,7 +185,6 @@ const Lenceria = ({ onlyPromos, productos, searchTerm }) => {
               <ProductGrid
                 productos={mujerList}
                 searchTerm={searchTerm}
-                onlyPromos={onlyPromos}
                 showBackButton={false}
               />
             )}
@@ -220,7 +219,6 @@ const Lenceria = ({ onlyPromos, productos, searchTerm }) => {
             productos={productos}
             loadingMessage={selectedCategory.loadingMessage}
             searchTerm={searchTerm}
-            onlyPromos={onlyPromos}
             showBackButton={false}
           />
         </div>

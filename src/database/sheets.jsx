@@ -2,7 +2,8 @@ const API_KEY = 'AIzaSyDzg3YXJpvDjXJWuMAz2yJN9_E-ZFT3UTY';
 const SHEET_ID = '1vgHmgT1wNeUSK_hFaPJgDE19Vnwl2Tk9Czcv3WRR37Q';
 
 // Pestañas de productos de la hoja. Todas usan las columnas:
-// Id | Nombre | Precio | rebaja | Descripción | Imagen | Stock | Imagen2
+// Id | Nombre | Precio | rebaja | Descripción | Imagen | Stock | Imagen2 | PRECIO_POR_MAYOR
+// Esta página es solo para mayoristas: el precio sale de PRECIO_POR_MAYOR (columna I).
 const HOJAS_PRODUCTOS = [
   'Lubricantes',
   'Juguetes',
@@ -145,8 +146,7 @@ function procesarFilaProducto(row) {
   return {
     id: row[0] || '',
     nombre: row[1] || '',
-    precio: row[2] || '',
-    rebaja: row[3] || '',
+    precio: row[8] || '',
     descripcion: row[4] || '',
     imagen: convertirLinkDrive(row[5] || ''),
     stock: Number(row[6]) || 0,
@@ -160,7 +160,7 @@ export function cargarHoja(nombreHoja, forceRefresh = false) {
   return conCache(
     `hoja:${nombreHoja}`,
     async () => {
-      const values = await leerRango(`${nombreHoja}!A:H`);
+      const values = await leerRango(`${nombreHoja}!A:I`);
       return values.slice(1).filter((row) => row[0] || row[1]).map(procesarFilaProducto);
     },
     { forceRefresh }
@@ -186,16 +186,10 @@ export async function cargarProductosDesdeSheets(forceRefresh = false) {
   }
 }
 
-// Las promociones son los productos con rebaja mayor a 0
-export async function cargarPromocionesDesdeSheets(forceRefresh = false) {
-  const productos = await cargarProductosDesdeSheets(forceRefresh);
-  return productos.filter((producto) => Number(producto.rebaja) > 0);
-}
-
 // Solo las primeras filas de una pestaña, para la sección de destacados del inicio
 export function cargarPrimerosProductos(nombreHoja, limit = 4) {
   return conCache(`primeros:${nombreHoja}:${limit}`, async () => {
-    const values = await leerRango(`${nombreHoja}!A2:H${limit + 1}`);
+    const values = await leerRango(`${nombreHoja}!A2:I${limit + 1}`);
     return values.map(procesarFilaProducto);
   });
 }

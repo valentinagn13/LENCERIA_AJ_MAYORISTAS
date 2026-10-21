@@ -154,9 +154,7 @@ const Inicio = () => {
       <div className="px-4 sm:px-6 lg:px-8 mb-16">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-light text-gray-800 mb-4">
-              DESTACADOS
-            </h2>
+          
             <div className="w-24 h-1 bg-gradient-to-r from-pink-400 to-purple-500 mx-auto" />
           </div>
 

@@ -4,7 +4,7 @@ import { useCart } from "../solar/CartContext";
 import IconoCarrito from "../ui/IconoCarrito";
 import Marca from "./header/Marca";
 import Buscador from "./header/Buscador";
-import { FranjaPromo, PildoraPromo, usePromoHeader } from "./header/Promo";
+import FranjaFrases from "./header/FranjaFrases";
 import { EnlaceUbicacion } from "./header/Ubicacion";
 import { MenuCategoriasEscritorio, MenuCategoriasMovil } from "./header/MenuCategorias";
 import MenuLateral, { ID_MENU_LATERAL } from "./header/MenuLateral";
@@ -13,14 +13,14 @@ import MenuLateral, { ID_MENU_LATERAL } from "./header/MenuLateral";
   Distribución (CSS grid con áreas):
   · Celular (< 768):   [menú | logo | carrito]  /  [buscador a todo el ancho]  /  [categorías con scroll]
   · Tablet (768-1023): [menú | logo | buscador | carrito]  /  [categorías con scroll]
-  · Escritorio (1024+):[logo | buscador | promo]  /  [ubicación | categorías | carrito]
-  La franja de promo (celular/tablet) va encima. El header no es fijo: se va con el scroll.
+  · Escritorio (1024+):[logo | buscador]  /  [ubicación | categorías | carrito]
+  La franja de frases va encima en todas las pantallas. El header no es fijo: se va con el scroll.
 */
 const CLASES_GRID = [
   "grid items-center gap-x-2 gap-y-2 md:gap-x-4 lg:gap-x-6",
   "grid-cols-[auto_1fr_auto] [grid-template-areas:'menu_logo_acciones'_'buscador_buscador_buscador'_'cats_cats_cats']",
   "md:grid-cols-[auto_auto_1fr_auto] md:[grid-template-areas:'menu_logo_buscador_acciones'_'cats_cats_cats_cats']",
-  "lg:grid-cols-[200px_1fr_auto] lg:[grid-template-areas:'logo_buscador_promo'_'ubicacion_cats_acciones']",
+  "lg:grid-cols-[auto_1fr_auto] lg:[grid-template-areas:'logo_buscador_buscador'_'ubicacion_cats_acciones']",
 ].join(" ");
 
 const claseIconoBoton =
@@ -51,7 +51,6 @@ export default function Header() {
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const botonMenuRef = useRef(null);
-  const promo = usePromoHeader();
 
   const { cartItems } = useCart();
   const cantidadCarrito = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -64,10 +63,7 @@ export default function Header() {
   return (
     <>
       <header className="relative z-40 bg-gradient-to-r from-header-desde to-header-hasta shadow-sm">
-        {/* Promo: franja delgada en celular y tablet */}
-        <div className="lg:hidden">
-          <FranjaPromo promo={promo} />
-        </div>
+        <FranjaFrases />
 
         <div className={`relative mx-auto max-w-screen-2xl px-4 py-2 lg:px-6 lg:py-3 ${CLASES_GRID}`}>
           {/* Menú hamburguesa (celular y tablet) */}
@@ -91,12 +87,6 @@ export default function Header() {
 
           {/* Buscador: protagonista y siempre visible */}
           <Buscador className="[grid-area:buscador] min-w-0" />
-
-          {/* Promo: píldora en escritorio */}
-          <PildoraPromo
-            promo={promo}
-            className="[grid-area:promo] hidden lg:flex w-[360px] xl:w-[440px] 2xl:w-[475px]"
-          />
 
           {/* Ubicación de la tienda física (escritorio) */}
           <div className="[grid-area:ubicacion] hidden lg:block min-w-0">

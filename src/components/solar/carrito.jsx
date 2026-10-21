@@ -7,7 +7,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useCart } from './CartContext';
 import IconoCarrito from '../ui/IconoCarrito';
 import { formatearPrecio, precioANumero } from '../../utils/productos';
-import { TIENDA, urlWhatsApp } from '../../data/tienda';
+import { urlWhatsApp } from '../../data/tienda';
 
 export default function SolarOverview({ open, setOpen }) {
   const { 
@@ -20,13 +20,19 @@ export default function SolarOverview({ open, setOpen }) {
   const navigate = useNavigate();
 
   const generarMensajeWhatsApp = () => {
-    const lineas = [
-      '🛍️ *Pedido para recoger en tienda*',
-      ...cartItems.map(item => `➡️ ${item.nombre} (${item.quantity}x) ${formatearPrecio(precioANumero(item.precio) * item.quantity)}`),
-      `*Total: ${cartTotal}*`,
-      `Dirección: ${TIENDA.direccion}`,
-    ];
-    return urlWhatsApp(lineas.join('\n'));
+    let mensaje = '🛒 *PEDIDO MAYORISTA*\n\n';
+    mensaje += '*Productos solicitados:*\n';
+    cartItems.forEach((item, index) => {
+      mensaje += `\n${index + 1}. ${item.nombre}`;
+      if (item.id) mensaje += ` (Ref: ${item.id})`;
+      if (item.selectedSize) mensaje += `\n   Talla: ${item.selectedSize}`;
+      mensaje += `\n   Cantidad: ${item.quantity}`;
+      mensaje += `\n   Precio unitario: ${formatearPrecio(item.precio)}`;
+      mensaje += `\n   Subtotal: ${formatearPrecio(precioANumero(item.precio) * item.quantity)}\n`;
+    });
+    mensaje += `\n*Total de productos:* ${cartCount}`;
+    mensaje += `\n*Total a pagar:* ${cartTotal}`;
+    return urlWhatsApp(mensaje);
   };
 
   return (
@@ -196,37 +202,18 @@ export default function SolarOverview({ open, setOpen }) {
       <p className="text-pink-600">{cartTotal}</p>
     </div>
 
-    {/* Botones horizontales */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-<button
-  onClick={() => {
-    setOpen(false);     // Opcional: cierra el carrito antes de redirigir
-    navigate('/domicilio');
-  }}
-  className="flex items-center justify-center rounded-xl border border-transparent bg-[#BC6E87] px-4 py-4 sm:py-3 text-base sm:text-sm font-medium text-white shadow-lg hover:bg-pink-700 transition-colors w-full"
->
-  {/* Icono de casita */}
-  <svg className="w-5 h-5 sm:w-4 sm:h-4 mr-2 sm:mr-1.5" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-  </svg>
-  <span className="text-sm sm:text-xs">Pedir domicilio</span>
-</button>
-
-      
-      <a
-        href={generarMensajeWhatsApp()}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center justify-center rounded-xl border border-transparent bg-[#BC6E87] px-4 py-4 sm:py-3 text-base sm:text-sm font-medium text-white shadow-lg hover:bg-pink-700 transition-colors w-full"
-      >
-       {/* Icono de ubicación */}
-<svg className="w-5 h-5 sm:w-4 sm:h-4 mr-2 sm:mr-1.5" fill="currentColor" viewBox="0 0 24 24">
-  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
-</svg>
-<span className="text-sm sm:text-xs">Recoger en tienda</span>
-
-      </a>
-    </div>
+    <a
+      href={generarMensajeWhatsApp()}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center justify-center rounded-xl border border-transparent bg-[#BC6E87] px-4 py-4 sm:py-3 text-base font-medium text-white shadow-lg hover:bg-pink-700 transition-colors w-full"
+    >
+      {/* Icono de enviar */}
+      <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z" />
+      </svg>
+      <span>Mandar pedido</span>
+    </a>
     
     <div className="mt-6 flex justify-center text-center text-base sm:text-sm text-gray-500">
       <p>

@@ -2,7 +2,6 @@
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/layout/Layout";
-import Promociones from "./pages/promociones";
 import Inicio from "./pages/inicio";
 
 import Juguetes from "./pages/juguetes";
@@ -16,7 +15,6 @@ import Combos from "./pages/Combos";
 import Visitanos from "./pages/visitanos";
 import DetalleProducto from "./database/DetalleProducto";
 import { CartProvider } from './components/solar/CartContext';
-import Domicilio from "./pages/domicilio";
 import ScrollToTop from "./pages/ScrollToTop";
 function App() {
   return (
@@ -26,7 +24,6 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Layout><Inicio /></Layout>} />
-          <Route path="/promociones" element={<Layout><Promociones /></Layout>} />
           <Route path="/contacto" element={<Layout><Contacto /></Layout>} />
           <Route path="/combos" element={<Layout><Combos /></Layout>} />
           <Route path="/visitanos" element={<Layout><Visitanos /></Layout>} />
@@ -38,7 +35,6 @@ function App() {
           <Route path="/suplementos" element={<Layout><Suplementos /></Layout>} />
           <Route path="/higiene" element={<Layout><Higiene /></Layout>} />
           <Route path="/bronceadores" element={<Layout><BronceadoresPage /></Layout>} />
-          <Route path="/domicilio" element={<Layout><Domicilio /></Layout>} />
           <Route path="/:slug" element={<Layout><DetalleProducto /></Layout>} />
         </Routes>
       </Router>

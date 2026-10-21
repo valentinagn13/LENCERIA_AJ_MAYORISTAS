@@ -37,41 +37,15 @@ export default function Footer2() {
                 </div>
 
 
-                <div className="bg-white rounded-lg p-2 shadow-sm flex items-center">
-                  <span className="text-sm lg:text-base font-bold lowercase">
-                    <span className="text-blue-900">siste</span>
-                    <span className="text-green-500">crédito</span>
-                  </span>
-                </div>
-
-                <div className="bg-white rounded-lg p-2 shadow-sm flex flex-col items-center">
-                  <span className="text-base lg:text-lg font-semibold flex items-center gap-0.5">
-                    <span className="text-gray-700">Credi</span>
-                    <span className="text-gray-400">London</span>
-                  </span>
-                </div>
-                <div className="bg-white rounded-lg p-2 shadow-sm flex flex-col items-center">
-                  <span className="text-base lg:text-lg font-semibold flex items-center gap-0.5">
-                    <span className="text-blue-700">Addi</span>
-                    {/* <span className="text-gray-400">Pay</span> */}
-                  </span>
-                </div>
 
               </div>
-
-              {/* Tarjetas de crédito (solo texto) */}
-              <div className="flex flex-wrap justify-center sm:justify-start gap-3 items-center">
+  <div className="flex flex-wrap justify-center sm:justify-start gap-3 items-center">
                 <div className="bg-white rounded-lg p-2 shadow-sm flex items-center">
-                  <img src={visaLogo} alt="Visa" className="h-6" />
-
+                  <span className="text-sm lg:text-base font-medium text-black">Transferencia</span>
                 </div>
 
-                <div className="bg-white rounded-lg p-2 shadow-sm flex items-center">
-                  <span className="text-sm lg:text-base font-medium text-black">Mastercard</span>
-                </div>
-                <div className="bg-white rounded-lg p-2 shadow-sm flex items-center">
-                  <span className="text-sm lg:text-base font-medium text-black">American Express</span>
-                </div>
+
+
               </div>
 
             </div>

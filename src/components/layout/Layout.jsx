@@ -11,7 +11,6 @@ const RUTAS_CATEGORIAS_PRINCIPALES = {
   "/lubricantes": "lubricantes",
   "/bronceadores": "bronceadores",
   "/combos": "combos",
-  "/promociones": "promociones",
 };
 
 export default function Layout({ children }) {

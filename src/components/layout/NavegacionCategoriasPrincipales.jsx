@@ -8,7 +8,6 @@ const ORDEN_CATEGORIAS = [
   "lubricantes",
   "bronceadores",
   "combos",
-  "promociones",
   "lenceria",
 ];
 

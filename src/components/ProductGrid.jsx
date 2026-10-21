@@ -7,9 +7,7 @@ import IconoCarrito from "./ui/IconoCarrito";
 import {
   formatearPrecio,
   normalizarTexto,
-  precioOriginal,
   rutaProducto,
-  tieneRebaja,
 } from "../utils/productos";
 
 const CheckIconSvg = ({ className = "h-6 w-6" }) => (
@@ -18,7 +16,7 @@ const CheckIconSvg = ({ className = "h-6 w-6" }) => (
   </svg>
 );
 
-// Tarjeta de producto única: se usa en categorías, promociones, inicio y búsqueda.
+// Tarjeta de producto única: se usa en categorías, inicio y búsqueda.
 // Con sinBorde (inicio) no lleva borde ni sombra: la imagen y el texto quedan sobre el fondo.
 export const ProductCard = ({ producto, onSelect, sinBorde = false }) => {
   const navigate = useNavigate();
@@ -74,12 +72,6 @@ export const ProductCard = ({ producto, onSelect, sinBorde = false }) => {
           </div>
         )}
 
-        {tieneRebaja(producto) && (
-          <div className="absolute top-2 left-2 bg-pink-500 text-white text-xs sm:text-sm font-bold px-2 py-1 rounded-full">
-            -{producto.rebaja}%
-          </div>
-        )}
-
         {!agotado && (
           <button
             onClick={agregar}
@@ -100,12 +92,7 @@ export const ProductCard = ({ producto, onSelect, sinBorde = false }) => {
           {producto.nombre}
         </h3>
 
-        <div className="flex items-center gap-2 mb-1">
-          <p className="text-base font-bold text-pink-800">{formatearPrecio(producto.precio)}</p>
-          {tieneRebaja(producto) && (
-            <p className="text-gray-400 line-through text-sm">{formatearPrecio(precioOriginal(producto))}</p>
-          )}
-        </div>
+        <p className="text-base font-bold text-pink-800 mb-1">{formatearPrecio(producto.precio)}</p>
 
         <p className="text-xs text-gray-600 line-clamp-2 leading-snug mb-2">{producto.descripcion}</p>
 
@@ -197,7 +184,6 @@ const ProductGrid = ({
   productos: propProductos,
   loadingMessage = "Cargando productos...",
   searchTerm = "",
-  onlyPromos = false,
   showBackButton = true,
   productosPorPagina = 30,
   mensajeVacio = "No encontramos lo que buscas. Prueba con otra palabra.",
@@ -210,10 +196,8 @@ const ProductGrid = ({
 
   useEffect(() => {
     let vigente = true;
-    const filtrarPromos = (data) => (onlyPromos ? data.filter(tieneRebaja) : data);
-
     if (propProductos) {
-      setProductos(filtrarPromos(propProductos));
+      setProductos(propProductos);
       setError(null);
       setLoading(false);
       setPaginaActual(1);
@@ -238,7 +222,7 @@ const ProductGrid = ({
     const cargar = async () => {
       try {
         const data = await fetchFn();
-        if (vigente) setProductos(filtrarPromos(data));
+        if (vigente) setProductos(data);
       } catch {
         if (vigente) setError("Error al cargar productos");
       } finally {
@@ -250,7 +234,7 @@ const ProductGrid = ({
     return () => {
       vigente = false;
     };
-  }, [fetchFn, onlyPromos, propProductos]);
+  }, [fetchFn, propProductos]);
 
   const term = normalizarTexto(searchTerm);
   useEffect(() => {

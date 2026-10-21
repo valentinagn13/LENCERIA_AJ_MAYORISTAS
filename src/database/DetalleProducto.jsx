@@ -5,7 +5,7 @@ import { useCart } from "../components/solar/CartContext";
 import Cargando from "../components/ui/Cargando";
 import BotonVolver from "../components/ui/BotonVolver";
 import IconoCarrito from "../components/ui/IconoCarrito";
-import { formatearPrecio, precioANumero, precioOriginal, tieneRebaja } from "../utils/productos";
+import { formatearPrecio } from "../utils/productos";
 
 const Flecha = ({ direccion }) => (
   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -181,12 +181,6 @@ const DetalleProducto = () => {
                 }}
               />
 
-              {tieneRebaja(producto) && (
-                <div className="absolute top-3 left-3 bg-pink-500 text-white text-sm font-bold px-3 py-1 rounded-full">
-                  -{producto.rebaja}%
-                </div>
-              )}
-
               {agotado && (
                 <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white text-center py-3">
                   <span className="text-lg font-bold">SIN EXISTENCIAS</span>
@@ -227,16 +221,6 @@ const DetalleProducto = () => {
               <span className="text-3xl font-bold text-pink-800">
                 {formatearPrecio(producto.precio)}
               </span>
-              {tieneRebaja(producto) && (
-                <>
-                  <span className="text-lg text-gray-400 line-through">
-                    {formatearPrecio(precioOriginal(producto))}
-                  </span>
-                  <span className="rounded-full bg-pink-100 px-3 py-1 text-sm font-semibold text-pink-700">
-                    Ahorras {formatearPrecio(precioOriginal(producto) - precioANumero(producto.precio))}
-                  </span>
-                </>
-              )}
             </div>
 
             {producto.descripcion && (
@@ -325,20 +309,12 @@ const DetalleProducto = () => {
                 </button>
               )}
 
-              <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <Link
-                  to="/"
-                  className="flex min-h-11 items-center justify-center rounded-xl border border-pink-600 px-3 text-center text-sm font-semibold text-pink-700 transition-colors hover:bg-pink-50"
-                >
-                  Continuar comprando
-                </Link>
-                <Link
-                  to="/promociones"
-                  className="flex min-h-11 items-center justify-center rounded-xl bg-pink-100 px-3 text-center text-sm font-semibold text-pink-800 transition-colors hover:bg-pink-200"
-                >
-                  Ver promociones
-                </Link>
-              </div>
+              <Link
+                to="/"
+                className="mt-3 flex min-h-11 items-center justify-center rounded-xl border border-pink-600 px-3 text-center text-sm font-semibold text-pink-700 transition-colors hover:bg-pink-50"
+              >
+                Continuar comprando
+              </Link>
             </div>
 
             {/* Beneficios */}

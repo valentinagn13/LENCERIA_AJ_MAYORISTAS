@@ -13,7 +13,6 @@ import IconoJuguetes from "../../ui/IconoJuguetes";
 import IconoSuplementos from "../../ui/IconoSuplementos";
 import IconoHigiene from "../../ui/IconoHigiene";
 import IconoCombos from "../../ui/IconoCombos";
-import IconPromo from "../promo.png";
 
 // Íconos en SVG (nítidos en cualquier pantalla)
 const ICONOS_SVG = {
@@ -24,11 +23,6 @@ const ICONOS_SVG = {
   higiene: IconoHigiene,
   bronceadores: IconoBronceadores,
   combos: IconoCombos,
-};
-
-// Íconos que aún son imágenes PNG
-const ICONOS_CATEGORIA = {
-  promociones: IconPromo,
 };
 
 const claseFila = "flex min-h-12 w-full items-center rounded-xl px-4 py-2 text-left transition-colors hover:bg-pink-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-header-acento";
@@ -123,10 +117,8 @@ export default function MenuLateral({ abierto, onCerrar, cartCount, onAbrirCarri
                 <li key={key}>
                   <div className="flex items-center">
                     <NavLink to={ruta} onClick={onCerrar} className={({ isActive }) => `${claseFila} group gap-4 flex-1 ${claseActiva(isActive)}`}>
-                      {IconoSvg ? (
+                      {IconoSvg && (
                         <IconoSvg className="h-7 w-7 text-gray-800 transition-transform group-hover:scale-110" />
-                      ) : (
-                        <img src={ICONOS_CATEGORIA[key]} alt="" className="h-7 w-7 transition-transform group-hover:scale-110" />
                       )}
                       <span className="flex items-center gap-1 text-base tracking-wide group-hover:text-header-icono">
                         {nombre}

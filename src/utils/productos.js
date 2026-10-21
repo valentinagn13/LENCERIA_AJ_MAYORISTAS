@@ -17,12 +17,6 @@ export const precioANumero = (valor) => {
 export const formatearPrecio = (valor) =>
   `$${Math.round(precioANumero(valor)).toLocaleString("es-CO")}`;
 
-export const tieneRebaja = (producto) => Number(producto?.rebaja) > 0;
-
-// El precio de la hoja ya es el precio final; se calcula el precio antes del descuento
-export const precioOriginal = (producto) =>
-  Math.round(precioANumero(producto.precio) / (1 - Number(producto.rebaja) / 100));
-
 export const rutaProducto = (producto) =>
   `/${producto.id}-${normalizarTexto(producto.nombre)
     .replace(/\s+/g, "-")

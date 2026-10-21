@@ -13,7 +13,7 @@
   --header-icono: #be185d;         /* pink-700: íconos y hover (3.3:1, mínimo para íconos) */
   --header-acento: #db2777;        /* pink-600: badge del carrito y borde del buscador al enfocar */
   --header-promo-fondo: #fce7f3;   /* pink-100: píldora de promoción en escritorio */
-  --header-franja-fondo: #be185d;  /* pink-700: franja de promoción en celular (texto blanco 6:1) */
+  --header-franja-fondo: #be185d;  /* pink-700: franja de frases encima del header (texto blanco 6:1) */
 }
 
 /* Oculta la barra de scroll sin quitar el desplazamiento (categorías en celular) */

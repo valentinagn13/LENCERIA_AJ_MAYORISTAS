@@ -8,9 +8,9 @@ const claseEnlace = ({ isActive }) =>
   }`;
 
 // En escritorio no caben todas las categorías en 1024 px: las que sobran van a "Más"
-// lg (1024+): 4 visibles · xl (1280+): 6 visibles · 2xl (1536+): todas
-const visibleDesde = (i) => (i < 4 ? "" : i < 6 ? "hidden xl:block" : "hidden 2xl:block");
-const ocultaEnMas = (i) => (i < 6 ? "xl:hidden" : "");
+// lg (1024+): 4 visibles · xl (1280+): todas
+const visibleDesde = (i) => (i < 4 ? "" : "hidden xl:block");
+const ocultaEnMas = () => "xl:hidden";
 
 const Chevron = ({ abierto }) => (
   <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform ${abierto ? "rotate-180" : ""}`} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -118,7 +118,7 @@ export function MenuCategoriasEscritorio({ className = "" }) {
             </li>
           )
         )}
-        <Desplegable etiqueta="Más" items={sobrantes} className="2xl:hidden" />
+        <Desplegable etiqueta="Más" items={sobrantes} className="xl:hidden" />
       </ul>
     </nav>
   );

@@ -77,14 +77,6 @@ export const CATEGORIAS = [
     descripcion: "Combinaciones irresistibles",
     color: "from-fuchsia-900/60 to-rose-900/60",
   },
-  {
-    key: "promociones",
-    nombre: "Promociones",
-    ruta: "/promociones",
-    imagen: "https://images.unsplash.com/photo-1556228720-195a672e8a03?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    descripcion: "Oportunidades que excitan",
-    color: "from-amber-900/60 to-orange-900/60",
-  },
 ];
 
 export const RUTA_VISITANOS = "/visitanos";
