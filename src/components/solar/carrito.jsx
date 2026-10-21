@@ -20,7 +20,7 @@ export default function SolarOverview({ open, setOpen }) {
   const navigate = useNavigate();
 
   const generarMensajeWhatsApp = () => {
-    let mensaje = '🛒 *PEDIDO MAYORISTA*\n\n';
+    let mensaje = ' *PEDIDO MAYORISTA*\n\n';
     mensaje += '*Productos solicitados:*\n';
     cartItems.forEach((item, index) => {
       mensaje += `\n${index + 1}. ${item.nombre}`;
@@ -212,7 +212,7 @@ export default function SolarOverview({ open, setOpen }) {
       <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
         <path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z" />
       </svg>
-      <span>Mandar pedido</span>
+      <span>Enviar pedido</span>
     </a>
     
     <div className="mt-6 flex justify-center text-center text-base sm:text-sm text-gray-500">
