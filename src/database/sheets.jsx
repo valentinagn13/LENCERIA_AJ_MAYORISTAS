@@ -20,6 +20,18 @@ const HOJAS_PRODUCTOS = [
   'Disfraces',
   'Mallas',
   'Tejidos',
+  'Sabor_y_sensacion',
+  'Anales',
+  'Estrechantes',
+  'Feromonas',
+  'Masajes_corporales',
+  'Multiorgasmo',
+  'Retardantes',
+  'Dildos',
+  'Anal',
+  'Masturbadores',
+  'Arnes',
+  'Fundas-Anillos',
   'Suplementos',
   'Higiene',
   'Bronceadores',
@@ -135,6 +147,9 @@ async function leerRango(range) {
   return response.result.values || [];
 }
 
+// Nombre de pestaña entre comillas para que funcionen guiones y espacios (ej. 'Fundas-Anillos'!A:I)
+const rangoHoja = (nombreHoja, celdas) => `'${nombreHoja.replace(/'/g, "''")}'!${celdas}`;
+
 // ========== CONVERSIÓN DE FILAS ==========
 function convertirLinkDrive(url) {
   if (!url) return '';
@@ -160,7 +175,7 @@ export function cargarHoja(nombreHoja, forceRefresh = false) {
   return conCache(
     `hoja:${nombreHoja}`,
     async () => {
-      const values = await leerRango(`${nombreHoja}!A:I`);
+      const values = await leerRango(rangoHoja(nombreHoja, 'A:I'));
       return values.slice(1).filter((row) => row[0] || row[1]).map(procesarFilaProducto);
     },
     { forceRefresh }
@@ -177,19 +192,23 @@ export const cargarBronceadoresDesdeSheets = (forceRefresh) => cargarHoja('Bronc
 
 // Todos los productos de todas las pestañas, ordenados por nombre (búsqueda y detalle)
 export async function cargarProductosDesdeSheets(forceRefresh = false) {
-  try {
-    const hojas = await Promise.all(HOJAS_PRODUCTOS.map((hoja) => cargarHoja(hoja, forceRefresh)));
-    return hojas.flat().sort((a, b) => a.nombre.localeCompare(b.nombre));
-  } catch (error) {
-    console.error('Error al cargar productos:', error);
-    return [];
-  }
+  // Si una pestaña falla (por ejemplo, aún no existe), las demás se siguen mostrando
+  const resultados = await Promise.allSettled(
+    HOJAS_PRODUCTOS.map((hoja) => cargarHoja(hoja, forceRefresh))
+  );
+  return resultados
+    .flatMap((resultado, i) => {
+      if (resultado.status === 'fulfilled') return resultado.value;
+      console.error(`Error al cargar la hoja ${HOJAS_PRODUCTOS[i]}:`, resultado.reason);
+      return [];
+    })
+    .sort((a, b) => a.nombre.localeCompare(b.nombre));
 }
 
 // Solo las primeras filas de una pestaña, para la sección de destacados del inicio
 export function cargarPrimerosProductos(nombreHoja, limit = 4) {
   return conCache(`primeros:${nombreHoja}:${limit}`, async () => {
-    const values = await leerRango(`${nombreHoja}!A2:I${limit + 1}`);
+    const values = await leerRango(rangoHoja(nombreHoja, `A2:I${limit + 1}`));
     return values.map(procesarFilaProducto);
   });
 }
