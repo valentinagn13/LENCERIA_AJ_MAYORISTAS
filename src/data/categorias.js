@@ -31,6 +31,8 @@ export const JUGUETES_SUBCATEGORIAS = [
   { nombre: "Masturbadores", hoja: "Masturbadores", ruta: "/juguetes/masturbadores" },
   { nombre: "Arnés", hoja: "Arnes", ruta: "/juguetes/arnes" },
   { nombre: "Fundas y anillos", hoja: "Fundas-Anillos", ruta: "/juguetes/fundas-anillos" },
+  { nombre: "Juegos", hoja: "Juegos", ruta: "/juguetes/juegos" },
+  { nombre: "BDSM", hoja: "BDSM", ruta: "/juguetes/bdsm" },
 ];
 
 export const CATEGORIAS = [

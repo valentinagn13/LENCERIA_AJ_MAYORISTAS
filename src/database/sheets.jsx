@@ -32,6 +32,8 @@ const HOJAS_PRODUCTOS = [
   'Masturbadores',
   'Arnes',
   'Fundas-Anillos',
+  'Juegos',
+  'BDSM',
   'Suplementos',
   'Higiene',
   'Bronceadores',
